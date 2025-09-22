@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Palette, Scissors, Sparkles, Heart, Users, GraduationCap } from "lucide-react";
+import AppointmentModal from "./AppointmentModal";
 import bridalImage from "@assets/generated_images/bridal_makeup_transformation_f77e8d1a.png";
 import nailImage from "@assets/generated_images/elegant_nail_art_showcase_a17e36cd.png";
 import skincareImage from "@assets/generated_images/luxury_skincare_treatment_108301b2.png";
@@ -60,12 +62,16 @@ const services = [
 ];
 
 export default function Services() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<string>("");
+
   const handleLearnMore = (serviceName: string) => {
     console.log(`Learn more about ${serviceName} clicked`);
   };
 
   const handleBookService = (serviceName: string) => {
-    console.log(`Book ${serviceName} clicked`);
+    setSelectedService(serviceName);
+    setIsModalOpen(true);
   };
 
   return (
@@ -148,6 +154,12 @@ export default function Services() {
           })}
         </div>
       </div>
+      
+      <AppointmentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        selectedService={selectedService}
+      />
     </section>
   );
 }

@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import AppointmentModal from "./AppointmentModal";
 import heroImage from "@assets/generated_images/luxury_beauty_salon_interior_b6eb8dca.png";
 
 export default function Hero() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleBookAppointment = () => {
-    console.log('Book appointment clicked');
+    setIsModalOpen(true);
   };
 
   const handleLearnMore = () => {
@@ -68,6 +72,11 @@ export default function Hero() {
           </div>
         </div>
       </div>
+      
+      <AppointmentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 }

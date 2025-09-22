@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 import { 
   Phone, 
   Mail, 
@@ -37,9 +41,35 @@ const footerLinks = {
 };
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const { toast } = useToast();
+
+  const newsletterMutation = useMutation({
+    mutationFn: async (email: string) => {
+      const response = await apiRequest("POST", "/api/newsletter", { email });
+      return await response.json();
+    },
+    onSuccess: (response) => {
+      toast({
+        title: "Subscribed!",
+        description: response.message,
+      });
+      setEmail("");
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Newsletter signup submitted');
+    if (email.trim()) {
+      newsletterMutation.mutate(email);
+    }
   };
 
   const handleSocialClick = (platform: string) => {
@@ -130,13 +160,17 @@ export default function Footer() {
                   <Input
                     type="email"
                     placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="bg-background/10 border-background/20 text-background placeholder:text-background/60"
                     data-testid="input-newsletter"
+                    required
                   />
                   <Button 
                     type="submit" 
                     size="icon" 
                     variant="secondary"
+                    disabled={newsletterMutation.isPending}
                     data-testid="button-newsletter"
                   >
                     <Send className="h-4 w-4" />

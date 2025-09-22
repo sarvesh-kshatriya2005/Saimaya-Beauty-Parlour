@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
+import AppointmentModal from "./AppointmentModal";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -15,6 +16,7 @@ const navigation = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [location] = useLocation();
 
   const toggleMenu = () => {
@@ -68,7 +70,11 @@ export default function Header() {
               <Phone className="h-4 w-4 mr-2" />
               Call Now
             </Button>
-            <Button size="sm" data-testid="button-book">
+            <Button 
+              size="sm" 
+              onClick={() => setIsModalOpen(true)}
+              data-testid="button-book"
+            >
               Book Appointment
             </Button>
           </div>
@@ -116,13 +122,22 @@ export default function Header() {
                 <Phone className="h-4 w-4 mr-2" />
                 Call Now
               </Button>
-              <Button size="sm" data-testid="mobile-button-book">
+              <Button 
+                size="sm" 
+                onClick={() => setIsModalOpen(true)}
+                data-testid="mobile-button-book"
+              >
                 Book Appointment
               </Button>
             </div>
           </div>
         )}
       </div>
+      
+      <AppointmentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </header>
   );
 }

@@ -10,6 +10,7 @@ import AcademyPage from "@/pages/AcademyPage";
 import GalleryPage from "@/pages/GalleryPage";
 import TestimonialsPage from "@/pages/TestimonialsPage";
 import ContactPage from "@/pages/ContactPage";
+import AdminPage from "@/pages/AdminPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/gallery" component={GalleryPage} />
       <Route path="/testimonials" component={TestimonialsPage} />
       <Route path="/contact" component={ContactPage} />
+      <Route path="/admin" component={AdminPage} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
