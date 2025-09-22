@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import AppointmentModal from "@/components/AppointmentModal";
 import { 
   Phone, 
   Mail, 
@@ -54,6 +55,7 @@ const socialLinks = [
 ];
 
 export default function Contact() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -65,7 +67,6 @@ export default function Contact() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    console.log(`Form field ${name} updated:`, value);
   };
 
   const { toast } = useToast();
@@ -104,15 +105,29 @@ export default function Contact() {
   };
 
   const handleContactAction = (action: string, title: string) => {
-    console.log(`${action} clicked for ${title}`);
+    // Handle contact actions like opening phone dialer or email client
+    if (action === "Call Now") {
+      window.open("tel:+919876543210", "_self");
+    } else if (action === "Send Email") {
+      window.open("mailto:info@saimayabeauty.com", "_self");
+    } else if (action === "Get Directions") {
+      window.open("https://maps.google.com", "_blank", "noopener");
+    } else if (action === "Book Slot") {
+      setIsModalOpen(true);
+    }
   };
 
   const handleWhatsApp = () => {
-    console.log('WhatsApp clicked');
+    window.open("https://wa.me/919876543210?text=Hi! I'd like to know more about your beauty services.", "_blank", "noopener");
   };
 
   const handleSocialClick = (platform: string) => {
-    console.log(`${platform} social link clicked`);
+    const socialLinks = {
+      Instagram: "https://instagram.com/saimayabeauty",
+      Facebook: "https://facebook.com/saimayabeauty", 
+      YouTube: "https://youtube.com/saimayaacademy"
+    };
+    window.open(socialLinks[platform as keyof typeof socialLinks], "_blank", "noopener");
   };
 
   return (
@@ -240,9 +255,13 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleInputChange}
                         placeholder="Your full name"
+                        className={formData.name.trim() && formData.name.length < 2 ? "border-destructive" : ""}
                         required
                         data-testid="input-name"
                       />
+                      {formData.name.trim() && formData.name.length < 2 && (
+                        <p className="text-sm text-destructive">Name must be at least 2 characters</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email *</Label>
@@ -253,9 +272,13 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="your.email@example.com"
+                        className={formData.email.trim() && !formData.email.includes("@") ? "border-destructive" : ""}
                         required
                         data-testid="input-email"
                       />
+                      {formData.email.trim() && !formData.email.includes("@") && (
+                        <p className="text-sm text-destructive">Please enter a valid email address</p>
+                      )}
                     </div>
                   </div>
                   
@@ -339,7 +362,7 @@ export default function Contact() {
                     <Button
                       variant="outline"
                       className="mt-4"
-                      onClick={() => console.log('Get directions clicked')}
+                      onClick={() => window.open("https://maps.google.com/search/123+Beauty+Street,+Fashion+District,+New+Delhi", "_blank", "noopener")}
                       data-testid="button-directions"
                     >
                       Get Directions
@@ -351,6 +374,11 @@ export default function Contact() {
           </div>
         </div>
       </div>
+      
+      <AppointmentModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 }

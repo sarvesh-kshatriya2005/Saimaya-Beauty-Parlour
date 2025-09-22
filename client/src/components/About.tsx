@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Award, Users, GraduationCap, Star, Heart, Trophy } from "lucide-react";
 import academyImage from "@assets/generated_images/beauty_academy_classroom_e4cf4d85.png";
+import { useLocation } from "wouter";
 
 const achievements = [
   {
@@ -39,12 +40,21 @@ const stats = [
 ];
 
 export default function About() {
+  const [location, setLocation] = useLocation();
+
   const handleContactUs = () => {
-    console.log('Contact us clicked');
+    // Check if contact section exists on current page
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Navigate to contact page if not on home
+      setLocation('/contact');
+    }
   };
 
   const handleViewAcademy = () => {
-    console.log('View academy clicked');
+    setLocation('/academy');
   };
 
   return (

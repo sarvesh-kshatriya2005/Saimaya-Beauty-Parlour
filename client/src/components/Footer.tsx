@@ -73,7 +73,12 @@ export default function Footer() {
   };
 
   const handleSocialClick = (platform: string) => {
-    console.log(`${platform} footer link clicked`);
+    const socialLinks = {
+      Instagram: "https://instagram.com/saimayabeauty",
+      Facebook: "https://facebook.com/saimayabeauty", 
+      YouTube: "https://youtube.com/saimayaacademy"
+    };
+    window.open(socialLinks[platform as keyof typeof socialLinks], "_blank", "noopener");
   };
 
   return (

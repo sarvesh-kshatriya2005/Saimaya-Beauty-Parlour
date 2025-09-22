@@ -2,7 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Quote } from "lucide-react";
 
-// todo: remove mock functionality - replace with real testimonials
 const testimonials = [
   {
     id: 1,

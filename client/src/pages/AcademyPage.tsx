@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Academy from "@/components/Academy";
 import Footer from "@/components/Footer";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import BackToTop from "@/components/BackToTop";
 
 export default function AcademyPage() {
   return (
@@ -10,6 +12,8 @@ export default function AcademyPage() {
         <Academy />
       </main>
       <Footer />
+      <FloatingWhatsApp />
+      <BackToTop />
     </div>
   );
 }

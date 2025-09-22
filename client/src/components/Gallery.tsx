@@ -86,17 +86,14 @@ export default function Gallery() {
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
-    console.log(`Gallery category changed to: ${category}`);
   };
 
   const handleImageClick = (image: typeof galleryImages[0]) => {
     setSelectedImage(image);
-    console.log(`Image opened: ${image.title}`);
   };
 
   const closeModal = () => {
     setSelectedImage(null);
-    console.log('Gallery modal closed');
   };
 
   return (

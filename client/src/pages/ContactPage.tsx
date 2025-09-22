@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import BackToTop from "@/components/BackToTop";
 
 export default function ContactPage() {
   return (
@@ -10,6 +12,8 @@ export default function ContactPage() {
         <Contact />
       </main>
       <Footer />
+      <FloatingWhatsApp />
+      <BackToTop />
     </div>
   );
 }

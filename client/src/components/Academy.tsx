@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Clock, Users, Tag, BookOpen, Award } from "lucide-react";
 import academyImage from "@assets/generated_images/beauty_academy_classroom_e4cf4d85.png";
+import { useLocation } from "wouter";
 
 const courses = [
   {
@@ -71,16 +72,34 @@ const features = [
 ];
 
 export default function Academy() {
+  const [location, setLocation] = useLocation();
+
   const handleEnrollNow = (courseName: string) => {
-    console.log(`Enroll in ${courseName} clicked`);
+    // Open WhatsApp with course-specific message
+    const message = `Hi! I'm interested in enrolling for the ${courseName} course. Can you please share more details?`;
+    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, "_blank", "noopener");
   };
 
   const handleViewDetails = (courseName: string) => {
-    console.log(`View details for ${courseName} clicked`);
+    // Check if contact section exists on current page
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Navigate to contact page if not on home
+      setLocation('/contact');
+    }
   };
 
   const handleContactAcademy = () => {
-    console.log('Contact academy clicked');
+    // Check if contact section exists on current page
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Navigate to contact page if not on home
+      setLocation('/contact');
+    }
   };
 
   return (

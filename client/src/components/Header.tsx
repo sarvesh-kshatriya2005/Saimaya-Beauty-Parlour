@@ -21,7 +21,6 @@ export default function Header() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-    console.log(`Menu ${!isMenuOpen ? 'opened' : 'closed'}`);
   };
 
   return (
@@ -65,7 +64,7 @@ export default function Header() {
               variant="outline"
               size="sm"
               data-testid="button-call"
-              onClick={() => console.log('Call button clicked')}
+              onClick={() => window.open("tel:+919876543210", "_self")}
             >
               <Phone className="h-4 w-4 mr-2" />
               Call Now
@@ -117,7 +116,7 @@ export default function Header() {
                 variant="outline"
                 size="sm"
                 data-testid="mobile-button-call"
-                onClick={() => console.log('Mobile call button clicked')}
+                onClick={() => window.open("tel:+919876543210", "_self")}
               >
                 <Phone className="h-4 w-4 mr-2" />
                 Call Now

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Palette, Scissors, Sparkles, Heart, Users, GraduationCap } from "lucide-react";
 import AppointmentModal from "./AppointmentModal";
+import { useLocation } from "wouter";
 import bridalImage from "@assets/generated_images/bridal_makeup_transformation_f77e8d1a.png";
 import nailImage from "@assets/generated_images/elegant_nail_art_showcase_a17e36cd.png";
 import skincareImage from "@assets/generated_images/luxury_skincare_treatment_108301b2.png";
@@ -64,9 +65,17 @@ const services = [
 export default function Services() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string>("");
+  const [location, setLocation] = useLocation();
 
   const handleLearnMore = (serviceName: string) => {
-    console.log(`Learn more about ${serviceName} clicked`);
+    // Check if contact section exists on current page
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Navigate to contact page if not on home
+      setLocation('/contact');
+    }
   };
 
   const handleBookService = (serviceName: string) => {
@@ -132,11 +141,15 @@ export default function Services() {
                     <div className="flex flex-col gap-2">
                       <Button
                         size="sm"
-                        onClick={() => handleBookService(service.title)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleBookService(service.title);
+                        }}
                         data-testid={`button-book-${index}`}
                       >
                         Book Now
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                        <ArrowRight className="ml-2 h-4 w-4 pointer-events-none" />
                       </Button>
                       <Button
                         variant="outline"

@@ -12,7 +12,7 @@ export default function Hero() {
   };
 
   const handleLearnMore = () => {
-    console.log('Learn more clicked');
+    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
