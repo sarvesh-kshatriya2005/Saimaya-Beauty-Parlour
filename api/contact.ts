@@ -1,7 +1,6 @@
-import type { Express } from "express";
-import { createServer, type Server } from "http";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { storage } from "../server/storage";
-import { insertContactInquirySchema, insertAppointmentSchema } from "../shared/schema";
+import { insertContactInquirySchema} from "../shared/schema";
 import { z } from "zod";
 
 // Contact form submission

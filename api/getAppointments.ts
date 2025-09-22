@@ -1,4 +1,5 @@
 import { storage } from "../server/storage";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 
 // Get all appointments (for admin)
   app.get("/api/appointments", async (req, res) => {

@@ -1,4 +1,5 @@
 import { storage } from "../server/storage";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 // Update appointment status (for admin)
   app.patch("/api/appointments/:id/status", async (req, res) => {
     try {

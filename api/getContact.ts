@@ -1,4 +1,4 @@
-
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { storage } from "../server/storage";
 // Get all contact inquiries (for admin)
   app.get("/api/contact", async (req, res) => {

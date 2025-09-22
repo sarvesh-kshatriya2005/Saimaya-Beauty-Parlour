@@ -1,3 +1,4 @@
+import { VercelRequest, VercelResponse } from "@vercel/node";
 // Newsletter signup (simple storage for now)
   app.post("/api/newsletter", async (req, res) => {
     try {

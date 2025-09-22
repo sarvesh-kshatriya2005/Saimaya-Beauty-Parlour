@@ -1,6 +1,6 @@
-
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { storage } from "../server/storage";
-import { insertContactInquirySchema, insertAppointmentSchema } from "../shared/schema";
+import { insertAppointmentSchema } from "../shared/schema";
 import { z } from "zod";
 
 // Appointment booking
